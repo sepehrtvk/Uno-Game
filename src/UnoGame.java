@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class UnoGame {
 
-    private ArrayList<Card> cards;
+    protected ArrayList<Card> cards;
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";

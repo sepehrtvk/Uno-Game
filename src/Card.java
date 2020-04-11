@@ -22,36 +22,25 @@ public class Card {
     }
 
 
+    public String getColor() {
+        return color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Card)) return false;
+
+        Card card = (Card) o;
+
+        return getColor() != null ? getColor().equals(card.getColor()) : card.getColor() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getColor() != null ? getColor().hashCode() : 0;
+    }
+
     public  void printCard() {
-//        if (color.equals("Red")) {
-//            System.out.println(Red + "          " + RESET);
-//            System.out.println(Red + "          " + RESET);
-//            System.out.println(Red + "          " + RESET);
-//            System.out.println(Red + "          " + RESET);
-//            System.out.println(Red + "          " + RESET);
-//            System.out.println(Red + "          " + RESET);
-//            System.out.println();
-//        }
-//        if (color.equals("Green")) {
-//            System.out.println(Green + "        " + RESET);
-//            System.out.println(Green + "        " + RESET);
-//            System.out.println(Green + "        " + RESET);
-//            System.out.println(Green + "        " + RESET);
-//            System.out.println();
-//        }
-//        if (color.equals("Blue")) {
-//            System.out.println(Blue + "        " + RESET);
-//            System.out.println(Blue + "        " + RESET);
-//            System.out.println(Blue + "        " + RESET);
-//            System.out.println(Blue + "        " + RESET);
-//            System.out.println();
-//        }
-//        if (color.equals("Yellow")) {
-//            System.out.println(Yellow + "        " + RESET);
-//            System.out.println(Yellow + "        " + RESET);
-//            System.out.println(Yellow + "        " + RESET);
-//            System.out.println(Yellow + "        " + RESET);
-//            System.out.println();
-//        }
     }
 }

@@ -12,6 +12,7 @@ public class NumericalCard extends Card {
     }
 
 
+
     @Override
     public void printCard() {
         if (super.color.equals("Red")) {
