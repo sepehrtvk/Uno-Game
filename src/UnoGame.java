@@ -30,7 +30,7 @@ public class UnoGame {
 
                 String type = " ";
                 if (j == 0) type = "Skip";
-                if (j == 1) type = "Draw";
+                if (j == 1) type = "Draw2+";
                 if (j == 2) type = "Reverse";
 
                 MovementCard movementCard = new MovementCard(color, type);
@@ -38,6 +38,16 @@ public class UnoGame {
             }
 
         }
+
+        for (int i = 0; i < 4; i++) {
+
+            WildCard wildCard = new WildCard("Black", "Draw4+");
+            WildCard wildCard1 = new WildCard("Black", "NextColor");
+            cards.add(wildCard);
+            cards.add(wildCard1);
+
+        }
+
 
     }
 }
