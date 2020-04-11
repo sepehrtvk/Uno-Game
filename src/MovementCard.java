@@ -6,4 +6,8 @@ public class MovementCard extends Card {
         super(color);
         this.moveType = moveType;
     }
+
+    public String getMoveType() {
+        return moveType;
+    }
 }

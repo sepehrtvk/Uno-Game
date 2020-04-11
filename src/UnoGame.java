@@ -4,6 +4,27 @@ public class UnoGame {
 
     private ArrayList<Card> cards;
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
+    public static final String Black = "\u001B[40m";
+    public static final String Red = "\u001B[41m";
+    public static final String Green = "\u001B[42m";
+    public static final String Yellow = "\u001B[43m";
+    public static final String Blue = "\u001B[44m";
+    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+    public static final String RESET = "\u001B[0m";
+
+
 
     public UnoGame() {
 
@@ -19,10 +40,10 @@ public class UnoGame {
 
             for (int k = 0; k < 19; k++) {
                 if (k < 10) {
-                    NumericalCard numericalCard = new NumericalCard(color, i);
+                    NumericalCard numericalCard = new NumericalCard(color, k);
                     cards.add(numericalCard);
                 } else {
-                    NumericalCard numericalCard = new NumericalCard(color, 19 - i);
+                    NumericalCard numericalCard = new NumericalCard(color, 19 - k);
                     cards.add(numericalCard);
                 }
             }
@@ -47,7 +68,13 @@ public class UnoGame {
             cards.add(wildCard1);
 
         }
+    }
+
+    public void printCard(){
 
 
+        for(Card card : cards){
+            card.printCard();
+        }
     }
 }
