@@ -29,7 +29,7 @@ public class UnoGame {
 
         cards = new ArrayList<Card>(108);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
 
             String color = " ";
             if (i == 0) color = "Red";
@@ -73,7 +73,7 @@ public class UnoGame {
 
 
         for (Card card : cards) {
-            card.printCard();
+            System.out.println(cards.size());
         }
     }
 }

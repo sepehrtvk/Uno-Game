@@ -21,25 +21,28 @@ public class ThreePlayer extends UnoGame {
         onTabelCrads = new ArrayList<Card>();
 
         for (int i = 0; i < 7; i++) {
-            int rand = random.nextInt(108);
+            int bound = 108-i-1;
+            int rand = random.nextInt(bound);
             playerOneCards.add(cards.get(rand));
             cards.remove(cards.get(rand));
         }
         for (int i = 0; i < 7; i++) {
-            int rand = random.nextInt(108);
+            int bound = 101-i-1;
+            int rand = random.nextInt(bound);
             playerTwoCards.add(cards.get(rand));
             cards.remove(cards.get(rand));
         }
         for (int i = 0; i < 7; i++) {
-            int rand = random.nextInt(108);
+            int bound = 94-i-1;
+            int rand = random.nextInt(bound);
             playerThreeCards.add(cards.get(rand));
             cards.remove(cards.get(rand));
         }
         while (true) {
-            int rand = random.nextInt(108);
+            int rand = random.nextInt(87);
             if (!cards.get(rand).color.equals("Black")) {
                 onTabelCrads.add(cards.get(rand));
-                cards.remove(cards.remove(rand));
+                cards.remove(cards.get(rand));
                 break;
             }
         }
@@ -55,9 +58,9 @@ public class ThreePlayer extends UnoGame {
         Player starter = players.get(random.nextInt(3));
         System.out.println("Player " + starter.name + " starts the game.");
         System.out.println("Clock-Wise");
-        for (int i = 0; i < playerOneCards.size(); i++) {
+        for (int i = 0; i < starter.playerCards.size(); i++) {
             System.out.println((i + 1) + ") ");
-            playerOneCards.get(i).printCard();
+            starter.playerCards.get(i).printCard();
         }
 
         int choosedCard = 0;
@@ -72,7 +75,7 @@ public class ThreePlayer extends UnoGame {
                 starter.playerCards.remove(choosedCard - 1);
                 break;
             }
-            else if (onTabelCrads.get(0) instanceof NumericalCard && starter.playerCards.get(choosedCard - 1) instanceof NumericalCard) {
+            if (onTabelCrads.get(0) instanceof NumericalCard && starter.playerCards.get(choosedCard - 1) instanceof NumericalCard) {
                 NumericalCard nc1 = (NumericalCard) onTabelCrads.get(0);
                 NumericalCard nc2 = (NumericalCard) starter.playerCards.get(choosedCard - 1);
                 if (nc1.getNumber() == nc2.getNumber()){
@@ -81,13 +84,18 @@ public class ThreePlayer extends UnoGame {
                     break;
                 }
 
-            }else if(onTabelCrads.get(0) instanceof MovementCard && starter.playerCards.get(choosedCard-1) instanceof MovementCard){
+            }
+            if(onTabelCrads.get(0) instanceof MovementCard && starter.playerCards.get(choosedCard-1) instanceof MovementCard){
                 onTabelCrads.add(starter.playerCards.get(choosedCard-1));
                 starter.playerCards.remove(choosedCard-1);
+                break;
             }
             System.out.println("wrong card !");
 
 
+        }
+        for(Card card : onTabelCrads){
+            card.printCard();
         }
 
 
