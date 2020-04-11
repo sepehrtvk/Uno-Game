@@ -25,7 +25,6 @@ public class UnoGame {
     public static final String RESET = "\u001B[0m";
 
 
-
     public UnoGame() {
 
         cards = new ArrayList<Card>(108);
@@ -47,12 +46,12 @@ public class UnoGame {
                     cards.add(numericalCard);
                 }
             }
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 6; j++) {
 
                 String type = " ";
-                if (j == 0) type = "Skip";
-                if (j == 1) type = "Draw2+";
-                if (j == 2) type = "Reverse";
+                if (j == 0 || j == 3) type = "Skip";
+                if (j == 1 || j == 4) type = "Draw2+";
+                if (j == 2 || j == 5) type = "Reverse";
 
                 MovementCard movementCard = new MovementCard(color, type);
                 cards.add(movementCard);
@@ -70,10 +69,10 @@ public class UnoGame {
         }
     }
 
-    public void printCard(){
+    public void printCard() {
 
 
-        for(Card card : cards){
+        for (Card card : cards) {
             card.printCard();
         }
     }
