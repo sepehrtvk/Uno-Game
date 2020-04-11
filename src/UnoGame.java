@@ -9,43 +9,35 @@ public class UnoGame {
 
         cards = new ArrayList<Card>(108);
 
-        for (int i = 0; i < 19; i++) {
-            if (i < 10) {
-                NumericalCard numericalCard = new NumericalCard("Red", i);
-                cards.add(numericalCard);
-            } else {
-                NumericalCard numericalCard = new NumericalCard("Red", 19 - i);
-                cards.add(numericalCard);
+        for (int i = 0; i < 5; i++) {
+
+            String color = " ";
+            if (i == 0) color = "Red";
+            if (i == 1) color = "Yellow";
+            if (i == 2) color = "Green";
+            if (i == 3) color = "Blue";
+
+            for (int k = 0; k < 19; k++) {
+                if (k < 10) {
+                    NumericalCard numericalCard = new NumericalCard(color, i);
+                    cards.add(numericalCard);
+                } else {
+                    NumericalCard numericalCard = new NumericalCard(color, 19 - i);
+                    cards.add(numericalCard);
+                }
             }
-        }
-        for (int i = 0; i < 19; i++) {
-            if (i < 10) {
-                NumericalCard numericalCard = new NumericalCard("Yellow", i);
-                cards.add(numericalCard);
-            } else {
-                NumericalCard numericalCard = new NumericalCard("Yellow", 19 - i);
-                cards.add(numericalCard);
+            for (int j = 0; j < 3; j++) {
+
+                String type = " ";
+                if (j == 0) type = "Skip";
+                if (j == 1) type = "Draw";
+                if (j == 2) type = "Reverse";
+
+                MovementCard movementCard = new MovementCard(color, type);
+                cards.add(movementCard);
             }
-        }
-        for (int i = 0; i < 19; i++) {
-            if (i < 10) {
-                NumericalCard numericalCard = new NumericalCard("Green", i);
-                cards.add(numericalCard);
-            } else {
-                NumericalCard numericalCard = new NumericalCard("Green", 19 - i);
-                cards.add(numericalCard);
-            }
-        }
-        for (int i = 0; i < 19; i++) {
-            if (i < 10) {
-                NumericalCard numericalCard = new NumericalCard("Blue", i);
-                cards.add(numericalCard);
-            } else {
-                NumericalCard numericalCard = new NumericalCard("Blue", 19 - i);
-                cards.add(numericalCard);
-            }
+
         }
 
-        
     }
 }
