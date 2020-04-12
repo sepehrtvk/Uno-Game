@@ -5,7 +5,7 @@ public class Player  {
 
     protected String name;
     protected ArrayList<Card> playerCards;
-    private int score;
+    protected int score;
     protected boolean skip;
 
     public Player(String name, ArrayList<Card> playerCards) {

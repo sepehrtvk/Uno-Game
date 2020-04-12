@@ -129,6 +129,10 @@ public class ThreePlayer extends UnoGame {
             onTableCards.remove(1);
             //onTableCards.remove(2);
 
+            displayScoreBooard();
+
+            System.out.println("Enter 1 to continue the game : ");
+            scanner.nextInt();
         }
     }
 
@@ -172,7 +176,7 @@ public class ThreePlayer extends UnoGame {
             MovementCard movementCard1 = (MovementCard) onTableCards.get(index);
             MovementCard movementCard2 = (MovementCard) player.playerCards.get(choosedCard - 1);
             if (movementCard1.getMoveType().equals(movementCard2.getMoveType())) {
-                checkMovementCard(player.playerCards.get(choosedCard - 1),index);
+                checkMovementCard(player.playerCards.get(choosedCard - 1), index);
                 onTableCards.add(player.playerCards.get(choosedCard - 1));
                 player.playerCards.remove(choosedCard - 1);
                 return true;
@@ -246,6 +250,17 @@ public class ThreePlayer extends UnoGame {
                     players.get(indexOfPlayer - 1).skip = true;
                 }
             }
+        }
+
+    }
+
+    public void displayScoreBooard() {
+        for (Player player : players) {
+            System.out.println();
+            System.out.println("--------------------");
+            System.out.println("| player name : " + player.name + " | Score : " + player.score+" |");
+            System.out.println("--------------------");
+
         }
 
     }
