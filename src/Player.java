@@ -12,6 +12,9 @@ public class Player  {
         this.name = name;
         skip=false;
         this.playerCards = playerCards;
+    }
+
+    public void printPlayer() {
         for (Card card : playerCards) {
             if (card instanceof NumericalCard) {
                 NumericalCard numericalCard = (NumericalCard) card;
@@ -24,9 +27,7 @@ public class Player  {
                 score += 50;
             }
         }
-    }
 
-    public void printPlayer() {
         System.out.println("Player name : " + name);
         System.out.println("Number of cards : " + playerCards.size());
         System.out.println("Score : " + score);
