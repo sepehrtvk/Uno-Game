@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Player extends ThreePlayer {
+public class Player  {
 
     protected String name;
     protected ArrayList<Card> playerCards;
     private int score;
-    private int turn;
+    protected boolean skip;
 
-    public Player(String name, ArrayList<Card> playerCards,int turn) {
+    public Player(String name, ArrayList<Card> playerCards) {
         this.name = name;
-        this.turn=turn;
+        skip=false;
         this.playerCards = playerCards;
         for (Card card : playerCards) {
             if (card instanceof NumericalCard) {
@@ -40,13 +40,5 @@ public class Player extends ThreePlayer {
             i++;
         }
 
-    }
-    public Card giveCrad(Player player){
-        Random random = new Random();
-        while (true){
-            int rand = random.nextInt(player.playerCards.size());
-            if(checkCard(rand,player,0))return player.playerCards.get(rand);break;
-        }
-        return player.playerCards.get(0);
     }
 }
