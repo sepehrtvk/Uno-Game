@@ -104,7 +104,6 @@ public class ThreePlayer extends UnoGame {
             if (counter > 0) if (endGame()) {
                 setWinner();
                 System.out.println();
-                displayScoreBoard();
                 break;
             }
 
@@ -122,7 +121,6 @@ public class ThreePlayer extends UnoGame {
             if (counter > 0) if (endGame()) {
                 setWinner();
                 System.out.println();
-                displayScoreBoard();
                 break;
             }
 
@@ -138,7 +136,6 @@ public class ThreePlayer extends UnoGame {
             if (counter > 0) if (endGame()) {
                 setWinner();
                 System.out.println();
-                displayScoreBoard();
                 break;
             }
 
@@ -174,15 +171,15 @@ public class ThreePlayer extends UnoGame {
         player.printPlayer();
         if (player.isSkip()) {
             System.out.println("! PLAYER BLOCKED !");
+            player.setSkip(false);
             return;
         }
-        player.setSkip(false);
         int counter = 0;
         while (true) {
             int choosedCard = random.nextInt(player.playerCards.size());
             if (checkCard(player.playerCards.get(choosedCard), player, lastCard)) break;
             counter++;
-            if (counter > player.playerCards.size()) {
+            if (counter > player.playerCards.size() + 10) {
                 int rand = random.nextInt(cards.size());
                 player.playerCards.add(cards.get(rand));
                 cards.remove(rand);
@@ -199,9 +196,9 @@ public class ThreePlayer extends UnoGame {
         player.printPlayer();
         if (player.isSkip()) {
             System.out.println("! PLAYER BLOCKED !");
+            player.setSkip(false);
             return;
         }
-        player.setSkip(false);
         player.printPlayerCards();
 
         boolean b = false;
@@ -230,10 +227,10 @@ public class ThreePlayer extends UnoGame {
                 b = true;
                 break;
             }
-            if(lastCard instanceof WildCard){
-                for(Card card : player.playerCards){
-                    if(card.color.equals(nextColor)){
-                        b=true;
+            if (lastCard instanceof WildCard) {
+                for (Card card : player.playerCards) {
+                    if (card.color.equals(nextColor)) {
+                        b = true;
                         break;
                     }
                 }
@@ -260,8 +257,12 @@ public class ThreePlayer extends UnoGame {
     public boolean checkCard(Card cardToCheck, Player player, Card lastCardOnTable) {
 
         if (lastCardOnTable instanceof WildCard) {
-            if (cardToCheck.color.equals(nextColor)) return true;
-            else return false;
+            if (cardToCheck.color.equals(nextColor)) {
+                onTableCards.add(cardToCheck);
+                player.playerCards.remove(cardToCheck);
+                lastCard = cardToCheck;
+                return true;
+            } else return false;
         }
 
         if (lastCardOnTable instanceof NumericalCard && cardToCheck instanceof NumericalCard) {
@@ -292,7 +293,7 @@ public class ThreePlayer extends UnoGame {
     }
 
     public boolean checkNumericalCard(Player player, NumericalCard playerCard, NumericalCard lastCardOnTable) {
-        if (lastCard.color.equals(playerCard.color) || lastCardOnTable.getNumber() == playerCard.getNumber()) {
+        if (lastCardOnTable.color.equals(playerCard.color) || lastCardOnTable.getNumber() == playerCard.getNumber()) {
             System.out.println("Player " + player.name + " put a card on table. ");
             onTableCards.add(playerCard);
             lastCard = playerCard;
@@ -303,7 +304,7 @@ public class ThreePlayer extends UnoGame {
     }
 
     public boolean checkMovementCard(Player player, MovementCard playerCard, MovementCard lastCardOnTable) {
-        if (lastCard.color.equals(playerCard.color) || lastCardOnTable.getMoveType().equals(playerCard.getMoveType())) {
+        if (lastCardOnTable.color.equals(playerCard.color) || lastCardOnTable.getMoveType().equals(playerCard.getMoveType())) {
             System.out.println("Player " + player.name + " put a card on table. ");
             onTableCards.add(playerCard);
             lastCard = playerCard;
@@ -325,7 +326,6 @@ public class ThreePlayer extends UnoGame {
                 return true;
             }
             if (lastCardOnTable.getMoveType().equals("Reverse")) {
-                System.out.println("---------------");
                 if (rotate.equals("Clock-Wise"))
                     setRotate("Anti-Clock-Wise");
                 else setRotate("Clock-Wise");
@@ -334,6 +334,7 @@ public class ThreePlayer extends UnoGame {
                     Player playerTemp2 = players.get(1);
                     Player playerTemp3 = players.get(2);
                     players.clear();
+                    System.out.println("@@@@@@@@@@@@@@@@@@@@");
                     players.add(playerTemp1);
                     players.add(playerTemp3);
                     players.add(playerTemp2);
@@ -343,6 +344,8 @@ public class ThreePlayer extends UnoGame {
                     Player playerTemp2 = players.get(1);
                     Player playerTemp3 = players.get(2);
                     players.clear();
+                    System.out.println("@@@@@@@@@@@@@@@@@@@@");
+
                     players.add(playerTemp3);
                     players.add(playerTemp1);
                     players.add(playerTemp2);
@@ -352,6 +355,8 @@ public class ThreePlayer extends UnoGame {
                     Player playerTemp2 = players.get(1);
                     Player playerTemp3 = players.get(2);
                     players.clear();
+                    System.out.println("@@@@@@@@@@@@@@@@@@@@");
+
                     players.add(playerTemp2);
                     players.add(playerTemp1);
                     players.add(playerTemp3);
@@ -359,37 +364,39 @@ public class ThreePlayer extends UnoGame {
                 return true;
             }
             if (lastCardOnTable.getMoveType().equals("Draw2+")) {
-                int rand1 = random.nextInt(cards.size());
-                int rand2 = random.nextInt(cards.size());
-                if (indexOfPlayer == 0) {
-                    players.get(1).playerCards.add(cards.get(rand1));
-                    cards.remove(cards.get(rand1));
-                    players.get(1).playerCards.add(cards.get(rand2));
-                    cards.remove(cards.get(rand2));
-                    System.out.println("2 cards added to player " + players.get(1).name);
-                    if (!players.get(0).isSkip())
-                        players.get(1).setSkip(true);
-                }
-                if (indexOfPlayer == 1) {
-                    players.get(2).playerCards.add(cards.get(rand1));
-                    cards.remove(cards.get(rand1));
-                    players.get(2).playerCards.add(cards.get(rand2));
-                    cards.remove(cards.get(rand2));
-                    System.out.println("2 cards added to player " + players.get(2).name);
-                    if (!players.get(1).isSkip())
-                        players.get(2).setSkip(true);
-                }
-                if (indexOfPlayer == 2) {
-                    players.get(0).playerCards.add(cards.get(rand1));
-                    cards.remove(cards.get(rand1));
-                    players.get(0).playerCards.add(cards.get(rand2));
-                    cards.remove(cards.get(rand2));
-                    System.out.println("2 cards added to player " + players.get(0).name);
-                    if (!players.get(2).isSkip())
-                        players.get(0).setSkip(true);
+                if (cards.size() >= 2) {
+                    int rand1 = random.nextInt(cards.size());
+                    int rand2 = random.nextInt(cards.size());
+                    if (indexOfPlayer == 0) {
+                        players.get(1).playerCards.add(cards.get(rand1));
+                        cards.remove(cards.get(rand1));
+                        players.get(1).playerCards.add(cards.get(rand2));
+                        cards.remove(cards.get(rand2));
+                        System.out.println("2 cards added to player " + players.get(1).name);
+                        if (!players.get(0).isSkip())
+                            players.get(1).setSkip(true);
+                    }
+                    if (indexOfPlayer == 1) {
+                        players.get(2).playerCards.add(cards.get(rand1));
+                        cards.remove(cards.get(rand1));
+                        players.get(2).playerCards.add(cards.get(rand2));
+                        cards.remove(cards.get(rand2));
+                        System.out.println("2 cards added to player " + players.get(2).name);
+                        if (!players.get(1).isSkip())
+                            players.get(2).setSkip(true);
+                    }
+                    if (indexOfPlayer == 2) {
+                        players.get(0).playerCards.add(cards.get(rand1));
+                        cards.remove(cards.get(rand1));
+                        players.get(0).playerCards.add(cards.get(rand2));
+                        cards.remove(cards.get(rand2));
+                        System.out.println("2 cards added to player " + players.get(0).name);
+                        if (!players.get(2).isSkip())
+                            players.get(0).setSkip(true);
 
+                    }
+                    return true;
                 }
-                return true;
             }
         }
         return false;
@@ -445,52 +452,54 @@ public class ThreePlayer extends UnoGame {
 
         int indexOfPlayer = players.indexOf(player);
         if (playerCard.getWildType().equals("Draw4+")) {
-            if (indexOfPlayer == 0) {
-                players.get(1).setSkip(true);
-                int rand1 = random.nextInt(cards.size());
-                players.get(1).playerCards.add(cards.get(rand1));
-                cards.remove(rand1);
-                int rand2 = random.nextInt(cards.size());
-                players.get(1).playerCards.add(cards.get(rand2));
-                cards.remove(rand2);
-                int rand3 = random.nextInt(cards.size());
-                players.get(1).playerCards.add(cards.get(rand3));
-                cards.remove(rand3);
-                int rand4 = random.nextInt(cards.size());
-                players.get(1).playerCards.add(cards.get(rand4));
-                cards.remove(rand4);
+            if (cards.size() >= 4) {
+                if (indexOfPlayer == 0) {
+                    players.get(1).setSkip(true);
+                    int rand1 = random.nextInt(cards.size());
+                    players.get(1).playerCards.add(cards.get(rand1));
+                    cards.remove(rand1);
+                    int rand2 = random.nextInt(cards.size());
+                    players.get(1).playerCards.add(cards.get(rand2));
+                    cards.remove(rand2);
+                    int rand3 = random.nextInt(cards.size());
+                    players.get(1).playerCards.add(cards.get(rand3));
+                    cards.remove(rand3);
+                    int rand4 = random.nextInt(cards.size());
+                    players.get(1).playerCards.add(cards.get(rand4));
+                    cards.remove(rand4);
+                }
+                if (indexOfPlayer == 1) {
+                    players.get(2).setSkip(true);
+                    int rand1 = random.nextInt(cards.size());
+                    players.get(2).playerCards.add(cards.get(rand1));
+                    cards.remove(rand1);
+                    int rand2 = random.nextInt(cards.size());
+                    players.get(2).playerCards.add(cards.get(rand2));
+                    cards.remove(rand2);
+                    int rand3 = random.nextInt(cards.size());
+                    players.get(2).playerCards.add(cards.get(rand3));
+                    cards.remove(rand3);
+                    int rand4 = random.nextInt(cards.size());
+                    players.get(2).playerCards.add(cards.get(rand4));
+                    cards.remove(rand4);
+                }
+                if (indexOfPlayer == 2) {
+                    players.get(0).setSkip(true);
+                    int rand1 = random.nextInt(cards.size());
+                    players.get(0).playerCards.add(cards.get(rand1));
+                    cards.remove(rand1);
+                    int rand2 = random.nextInt(cards.size());
+                    players.get(0).playerCards.add(cards.get(rand2));
+                    cards.remove(rand2);
+                    int rand3 = random.nextInt(cards.size());
+                    players.get(0).playerCards.add(cards.get(rand3));
+                    cards.remove(rand3);
+                    int rand4 = random.nextInt(cards.size());
+                    players.get(0).playerCards.add(cards.get(rand4));
+                    cards.remove(rand4);
+                }
+                return true;
             }
-            if (indexOfPlayer == 1) {
-                players.get(2).setSkip(true);
-                int rand1 = random.nextInt(cards.size());
-                players.get(2).playerCards.add(cards.get(rand1));
-                cards.remove(rand1);
-                int rand2 = random.nextInt(cards.size());
-                players.get(2).playerCards.add(cards.get(rand2));
-                cards.remove(rand2);
-                int rand3 = random.nextInt(cards.size());
-                players.get(2).playerCards.add(cards.get(rand3));
-                cards.remove(rand3);
-                int rand4 = random.nextInt(cards.size());
-                players.get(2).playerCards.add(cards.get(rand4));
-                cards.remove(rand4);
-            }
-            if (indexOfPlayer == 2) {
-                players.get(0).setSkip(true);
-                int rand1 = random.nextInt(cards.size());
-                players.get(0).playerCards.add(cards.get(rand1));
-                cards.remove(rand1);
-                int rand2 = random.nextInt(cards.size());
-                players.get(0).playerCards.add(cards.get(rand2));
-                cards.remove(rand2);
-                int rand3 = random.nextInt(cards.size());
-                players.get(0).playerCards.add(cards.get(rand3));
-                cards.remove(rand3);
-                int rand4 = random.nextInt(cards.size());
-                players.get(0).playerCards.add(cards.get(rand4));
-                cards.remove(rand4);
-            }
-            return true;
 
         }
         if (playerCard.getWildType().equals("NextColor")) {
@@ -531,7 +540,7 @@ public class ThreePlayer extends UnoGame {
             }
 
         }
-        System.out.println(5);
+        System.out.println();
     }
 
 
@@ -544,17 +553,18 @@ public class ThreePlayer extends UnoGame {
         for (Player player : players) {
             if (player.score == array[0]) player.setWinner(true);
         }
-
     }
 
     public boolean endGame() {
 
         for (Player player : players) {
-            if (player.score == 0) return true;
-            if (player.playerCards.size() == 0) return true;
+            if (player.score == 0 || player.playerCards.size() == 0) {
+                player.setWinner(true);
+                player.calculateScore();
+                displayScoreBoard();
+                return true;
+            }
         }
-        if (cards.size() == 0) return true;
-
         return false;
     }
 

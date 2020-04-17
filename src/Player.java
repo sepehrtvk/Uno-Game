@@ -33,6 +33,25 @@ public class Player  {
     }
 
     public void printPlayer() {
+        calculateScore();
+        System.out.println("Player name : " + name);
+        System.out.println("Number of cards : " + playerCards.size());
+        System.out.println("Score : " + score);
+        if(score==0)winner=true;
+    }
+    public void printPlayerCards(){
+        calculateScore();
+        int i =1;
+        for (Card card : playerCards) {
+
+            System.out.println(i+") ");
+            card.printCard();
+            i++;
+        }
+
+    }
+    public void calculateScore(){
+        score=0;
         for (Card card : playerCards) {
             if (card instanceof NumericalCard) {
                 NumericalCard numericalCard = (NumericalCard) card;
@@ -44,20 +63,6 @@ public class Player  {
             if (card instanceof WildCard) {
                 score += 50;
             }
-        }
-
-        System.out.println("Player name : " + name);
-        System.out.println("Number of cards : " + playerCards.size());
-        System.out.println("Score : " + score);
-        if(score==0)winner=true;
-    }
-    public void printPlayerCards(){
-        int i =1;
-        for (Card card : playerCards) {
-
-            System.out.println(i+") ");
-            card.printCard();
-            i++;
         }
 
     }
