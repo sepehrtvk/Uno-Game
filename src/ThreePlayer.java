@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -86,6 +87,7 @@ public class ThreePlayer extends UnoGame {
                 players.get(0).setSkip(true);
             }
         }
+        int counter = 0;
         while (true) {
 
             System.out.println(getRotate());
@@ -99,7 +101,7 @@ public class ThreePlayer extends UnoGame {
                 giveCard(players.get(0));
             }
             printOnTableCards();
-            if(endGame())break;
+            if (counter > 0) if (endGame()) break;
 
 
             System.out.println(getRotate());
@@ -112,7 +114,7 @@ public class ThreePlayer extends UnoGame {
 
 
             printOnTableCards();
-            if(endGame())break;
+            if (counter > 0) if (endGame()) break;
             System.out.println(getRotate());
 
             if (players.get(2).name.equals("You")) {
@@ -122,7 +124,7 @@ public class ThreePlayer extends UnoGame {
             }
 
             printOnTableCards();
-            if(endGame())break;
+            if (counter > 0) if (endGame()) break;
 
             System.out.println();
             for (int j = 0; j < onTableCards.size(); j++) {
@@ -147,7 +149,7 @@ public class ThreePlayer extends UnoGame {
 //                }
 //                i = 0;
 //            }
-
+            counter++;
         }
     }
 
@@ -251,7 +253,7 @@ public class ThreePlayer extends UnoGame {
                 return checkWildCard(player, wildCard, lastCardOnTable);
             }
             if (lastCardOnTable.color.equals(cardToCheck.color)) {
-                System.out.println("Player "+player.name+" put a card on table. ");
+                System.out.println("Player " + player.name + " put a card on table. ");
                 onTableCards.add(cardToCheck);
                 lastCard = cardToCheck;
                 player.playerCards.remove(cardToCheck);
@@ -274,21 +276,21 @@ public class ThreePlayer extends UnoGame {
                 return checkWildCard(player, wildCard, lastCardOnTable);
             }
             if (lastCardOnTable.color.equals(cardToCheck.color)) {
-                System.out.println("Player "+player.name+" put a card on table. ");
+                System.out.println("Player " + player.name + " put a card on table. ");
                 onTableCards.add(cardToCheck);
                 lastCard = cardToCheck;
                 player.playerCards.remove(cardToCheck);
                 return true;
             }
         }
-        nextColor="null";
+        nextColor = "null";
 
         return false;
     }
 
     public boolean checkNumericalCard(Player player, NumericalCard playerCard, NumericalCard lastCardOnTable) {
         if (lastCard.color.equals(playerCard.color) || lastCardOnTable.getNumber() == playerCard.getNumber()) {
-            System.out.println("Player "+player.name+" put a card on table. ");
+            System.out.println("Player " + player.name + " put a card on table. ");
             onTableCards.add(playerCard);
             lastCard = playerCard;
             player.playerCards.remove(playerCard);
@@ -299,7 +301,7 @@ public class ThreePlayer extends UnoGame {
 
     public boolean checkMovementCard(Player player, MovementCard playerCard, MovementCard lastCardOnTable) {
         if (lastCard.color.equals(playerCard.color) || lastCardOnTable.getMoveType().equals(playerCard.getMoveType())) {
-            System.out.println("Player "+player.name+" put a card on table. ");
+            System.out.println("Player " + player.name + " put a card on table. ");
             onTableCards.add(playerCard);
             lastCard = playerCard;
             player.playerCards.remove(playerCard);
@@ -426,7 +428,7 @@ public class ThreePlayer extends UnoGame {
                     break;
             }
         }
-        System.out.println("Player "+player.name+" put a card on table. ");
+        System.out.println("Player " + player.name + " put a card on table. ");
         onTableCards.add(playerCard);
         lastCard = playerCard;
         player.playerCards.remove(playerCard);
@@ -497,24 +499,30 @@ public class ThreePlayer extends UnoGame {
     }
 
     public void displayScoreBoard() {
-        for (Player player : players) {
-            System.out.println();
-            System.out.println("--------------------------------------");
-            if (player.name.equals("You"))
-                System.out.println("| player name : " + player.name + "     | Score : " + player.score + " |");
-            else System.out.println("| player name : " + player.name + " | Score : " + player.score + " |");
-
-            System.out.println("--------------------------------------");
-
+        int[] array = new int[players.size()];
+        for (int i = 0; i < players.size(); i++) {
+            array[i] = players.get(i).score;
         }
-
+        Arrays.sort(array);
+        System.out.println("--------------------------------");
+        System.out.println("|          Score Board          |");
+        for (int i = 0; i<array.length; i++) {
+            for (int j = 0; j < players.size(); j++) {
+                if (players.get(j).score == array[i]) {
+                    System.out.println("--------------------------------");
+                    System.out.println("| Player : " + players.get(j).name + " | Score : " + array[i]);
+                    System.out.println("--------------------------------");
+                }
+            }
+        }
     }
-    public boolean endGame(){
-        for(Player player : players){
-            if(player.score==0)return true;
-            if(player.playerCards.size()==0)return true;
+
+    public boolean endGame() {
+        for (Player player : players) {
+            if (player.score == 0) return true;
+            if (player.playerCards.size() == 0) return true;
         }
-        if(cards.size()==0)return true;
+        if (cards.size() == 0) return true;
 
         return false;
     }
