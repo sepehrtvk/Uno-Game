@@ -1,4 +1,4 @@
-public class Card {
+public abstract class Card {
 
     protected String color;
 
@@ -41,6 +41,6 @@ public class Card {
         return getColor() != null ? getColor().hashCode() : 0;
     }
 
-    public  void printCard() {
-    }
+    public abstract void printCard();
+
 }

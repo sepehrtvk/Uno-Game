@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Player  {
+public class Player {
 
     protected String name;
     protected ArrayList<Card> playerCards;
@@ -11,9 +11,9 @@ public class Player  {
 
     public Player(String name, ArrayList<Card> playerCards) {
         this.name = name;
-        skip=false;
+        skip = false;
         this.playerCards = playerCards;
-        winner=false;
+        winner = false;
     }
 
     public boolean isWinner() {
@@ -37,21 +37,22 @@ public class Player  {
         System.out.println("Player name : " + name);
         System.out.println("Number of cards : " + playerCards.size());
         System.out.println("Score : " + score);
-        if(score==0)winner=true;
+        if (score == 0) winner = true;
     }
-    public void printPlayerCards(){
+
+    public void printPlayerCards() {
         calculateScore();
-        int i =1;
+        int i = 1;
         for (Card card : playerCards) {
 
-            System.out.println(i+") ");
+            System.out.println(i + ") ");
             card.printCard();
             i++;
         }
-
     }
-    public void calculateScore(){
-        score=0;
+
+    public void calculateScore() {
+        score = 0;
         for (Card card : playerCards) {
             if (card instanceof NumericalCard) {
                 NumericalCard numericalCard = (NumericalCard) card;
@@ -64,6 +65,7 @@ public class Player  {
                 score += 50;
             }
         }
+        if (score == 0) winner = true;
 
     }
 }
