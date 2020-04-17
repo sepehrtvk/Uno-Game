@@ -13,6 +13,15 @@ public class Player  {
         this.name = name;
         skip=false;
         this.playerCards = playerCards;
+        winner=false;
+    }
+
+    public boolean isWinner() {
+        return winner;
+    }
+
+    public void setWinner(boolean winner) {
+        this.winner = winner;
     }
 
     public boolean isSkip() {

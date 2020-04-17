@@ -516,8 +516,20 @@ public class ThreePlayer extends UnoGame {
             }
         }
     }
-
+    public void setWinner(boolean endGame) {
+        if (endGame) {
+            int[] array = new int[players.size()];
+            for (int i = 0; i < players.size(); i++) {
+                array[i] = players.get(i).score;
+            }
+            Arrays.sort(array);
+            for (Player player : players) {
+                if (player.score==array[0])player.setWinner(true);
+            }
+        }
+    }
     public boolean endGame() {
+
         for (Player player : players) {
             if (player.score == 0) return true;
             if (player.playerCards.size() == 0) return true;
