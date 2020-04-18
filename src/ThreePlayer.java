@@ -5,16 +5,16 @@ import java.util.Scanner;
 
 public class ThreePlayer extends UnoGame {
 
-     ArrayList<Card> playerOneCards;
-     ArrayList<Card> playerTwoCards;
-     ArrayList<Card> playerThreeCards;
+    ArrayList<Card> playerOneCards;
+    ArrayList<Card> playerTwoCards;
+    ArrayList<Card> playerThreeCards;
 
-     Card lastCard;
+    Card lastCard;
 
-     String rotate;
-     String nextColor;
+    String rotate;
+    String nextColor;
 
-     ArrayList<Player> players;
+    ArrayList<Player> players;
 
     Random random = new Random();
 
@@ -53,6 +53,9 @@ public class ThreePlayer extends UnoGame {
         players.add(new Player("Sepehr", playerOneCards));
         players.add(new Player("Mohammad", playerTwoCards));
         players.add(new Player("Ali", playerThreeCards));
+        players.get(0).calculateScore();
+        players.get(1).calculateScore();
+        players.get(2).calculateScore();
     }
 
     public String getRotate() {
@@ -94,9 +97,9 @@ public class ThreePlayer extends UnoGame {
             lastCard.printCard();
 
             if (players.get(0).name.equals("Sepehr")) {
-                giveCardSepehr(players.get(0));
+                giveCardChoose(players.get(0));
             } else {
-                giveCard(players.get(0));
+                giveCardBot(players.get(0));
             }
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
             if (counter > 0) if (endGame()) {
@@ -109,9 +112,9 @@ public class ThreePlayer extends UnoGame {
             System.out.println(getRotate());
 
             if (players.get(1).name.equals("Sepehr")) {
-                giveCardSepehr(players.get(1));
+                giveCardChoose(players.get(1));
             } else {
-                giveCard(players.get(1));
+                giveCardBot(players.get(1));
             }
 
 
@@ -126,9 +129,9 @@ public class ThreePlayer extends UnoGame {
             System.out.println(getRotate());
 
             if (players.get(2).name.equals("Sepehr")) {
-                giveCardSepehr(players.get(2));
+                giveCardChoose(players.get(2));
             } else {
-                giveCard(players.get(2));
+                giveCardBot(players.get(2));
             }
 
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
@@ -146,7 +149,7 @@ public class ThreePlayer extends UnoGame {
         }
     }
 
-    public void giveCard(Player player) {
+    public void giveCardBot(Player player) {
         System.out.println("Player " + player.name + " please choose one card :");
         if (player.isSkip()) {
             System.out.println();
@@ -182,7 +185,7 @@ public class ThreePlayer extends UnoGame {
         }
     }
 
-    public void giveCardSepehr(Player player) {
+    public void giveCardChoose(Player player) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Player " + player.name + " please choose one card :");
 
@@ -389,8 +392,13 @@ public class ThreePlayer extends UnoGame {
         }
 
         if (player.name.equals("Sepehr")) {
-            System.out.println("Please enter next Color : ");
-            nextColor = scanner.next();
+            while (true) {
+                System.out.println("Please enter next Color : (Blue - Red - Yellow - Green ");
+                nextColor = scanner.next();
+                if (nextColor.equals("Blue") || nextColor.equals("Red") || nextColor.equals("Green") || nextColor.equals("Yellow"))
+                    break;
+                else System.out.println("! Wrong input color !");
+            }
             System.out.println();
             if (nextColor.equals("Blue"))
                 System.out.println(ANSI_BLUE + "Player " + player.name + " Choosed color <" + nextColor + ">" + ANSI_RESET);
@@ -452,7 +460,7 @@ public class ThreePlayer extends UnoGame {
         System.out.println("|          Score Board         |");
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < players.size(); j++) {
-                if (players.get(j).score == array[i]) {
+                if (players.get(j).score == array[i] && array[i] != 0) {
                     System.out.println("--------------------------------");
                     System.out.println("| Player : " + players.get(j).name + " | Score : " + array[i]);
                     System.out.println("--------------------------------");
@@ -516,8 +524,8 @@ public class ThreePlayer extends UnoGame {
     }
 
     public void skipCard(int indexOfPlayer) {
-        if (indexOfPlayer == players.size()-1) {
-            if (!players.get(players.size()-1).isSkip())
+        if (indexOfPlayer == players.size() - 1) {
+            if (!players.get(players.size() - 1).isSkip())
                 players.get(0).setSkip(true);
         } else {
 
@@ -532,7 +540,7 @@ public class ThreePlayer extends UnoGame {
             int rand1 = random.nextInt(cards.size());
             int rand2 = random.nextInt(cards.size());
 
-            if (indexOfPlayer == players.size()-1) {
+            if (indexOfPlayer == players.size() - 1) {
                 players.get(0).playerCards.add(cards.get(rand1));
                 cards.remove(cards.get(rand1));
                 players.get(0).playerCards.add(cards.get(rand2));
@@ -555,7 +563,7 @@ public class ThreePlayer extends UnoGame {
 
     public void drawCard4(int indexOfPlayer) {
         if (cards.size() >= 4) {
-            if (indexOfPlayer == players.size()-1) {
+            if (indexOfPlayer == players.size() - 1) {
                 players.get(0).setSkip(true);
                 int rand1 = random.nextInt(cards.size());
                 players.get(0).playerCards.add(cards.get(rand1));

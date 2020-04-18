@@ -14,7 +14,8 @@ public class FourPlayer extends ThreePlayer {
             playerFourCards.add(cards.get(rand));
             cards.remove(cards.get(rand));
         }
-        players.add(new Player("Hosien", playerFourCards));
+        players.add(new Player("Hosein", playerFourCards));
+        players.get(3).calculateScore();
     }
 
     @Override
@@ -72,10 +73,10 @@ public class FourPlayer extends ThreePlayer {
             System.out.println("Last card is :");
             lastCard.printCard();
 
-            if (players.get(0).name.equals("You")) {
-                giveCardYou(players.get(0));
+            if (players.get(0).name.equals("Sepehr")) {
+                giveCardChoose(players.get(0));
             } else {
-                giveCard(players.get(0));
+                giveCardBot(players.get(0));
             }
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
             if (counter > 0) if (endGame()) {
@@ -87,10 +88,10 @@ public class FourPlayer extends ThreePlayer {
 
             System.out.println(getRotate());
 
-            if (players.get(1).name.equals("You")) {
-                giveCardYou(players.get(1));
+            if (players.get(1).name.equals("Sepehr")) {
+                giveCardChoose(players.get(1));
             } else {
-                giveCard(players.get(1));
+                giveCardBot(players.get(1));
             }
 
 
@@ -104,10 +105,10 @@ public class FourPlayer extends ThreePlayer {
 
             System.out.println(getRotate());
 
-            if (players.get(2).name.equals("You")) {
-                giveCardYou(players.get(2));
+            if (players.get(2).name.equals("Sepehr")) {
+                giveCardChoose(players.get(2));
             } else {
-                giveCard(players.get(2));
+                giveCardBot(players.get(2));
             }
 
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
@@ -118,10 +119,10 @@ public class FourPlayer extends ThreePlayer {
             }
             System.out.println(getRotate());
 
-            if (players.get(3).name.equals("You")) {
-                giveCardYou(players.get(3));
+            if (players.get(3).name.equals("Sepehr")) {
+                giveCardChoose(players.get(3));
             } else {
-                giveCard(players.get(3));
+                giveCardBot(players.get(3));
             }
 
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
