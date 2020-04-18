@@ -50,9 +50,9 @@ public class ThreePlayer extends UnoGame {
             }
         }
         players = new ArrayList<Player>();
-        players.add(new Player("You", playerOneCards));
-        players.add(new Player("player2", playerTwoCards));
-        players.add(new Player("player3", playerThreeCards));
+        players.add(new Player("Sepehr", playerOneCards));
+        players.add(new Player("Mohammad", playerTwoCards));
+        players.add(new Player("Ali", playerThreeCards));
     }
 
     public String getRotate() {
@@ -93,8 +93,8 @@ public class ThreePlayer extends UnoGame {
             System.out.println("Last card is :");
             lastCard.printCard();
 
-            if (players.get(0).name.equals("You")) {
-                giveCardYou(players.get(0));
+            if (players.get(0).name.equals("Sepehr")) {
+                giveCardSepehr(players.get(0));
             } else {
                 giveCard(players.get(0));
             }
@@ -108,8 +108,8 @@ public class ThreePlayer extends UnoGame {
 
             System.out.println(getRotate());
 
-            if (players.get(1).name.equals("You")) {
-                giveCardYou(players.get(1));
+            if (players.get(1).name.equals("Sepehr")) {
+                giveCardSepehr(players.get(1));
             } else {
                 giveCard(players.get(1));
             }
@@ -125,8 +125,8 @@ public class ThreePlayer extends UnoGame {
 
             System.out.println(getRotate());
 
-            if (players.get(2).name.equals("You")) {
-                giveCardYou(players.get(2));
+            if (players.get(2).name.equals("Sepehr")) {
+                giveCardSepehr(players.get(2));
             } else {
                 giveCard(players.get(2));
             }
@@ -182,7 +182,7 @@ public class ThreePlayer extends UnoGame {
         }
     }
 
-    public void giveCardYou(Player player) {
+    public void giveCardSepehr(Player player) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Player " + player.name + " please choose one card :");
 
@@ -202,7 +202,7 @@ public class ThreePlayer extends UnoGame {
         if (!isCardAllowed(player)) {
             int rand = random.nextInt(cards.size());
             player.playerCards.add(cards.get(rand));
-            System.out.println("This card added to player to YOU from repository.");
+            System.out.println("This card added to player to Sepehr from repository.");
             cards.get(rand).printCard();
             checkCard(cards.get(rand), player, lastCard);
             cards.remove(rand);
@@ -213,7 +213,7 @@ public class ThreePlayer extends UnoGame {
                     player.playerCards.remove(choosedCardNumber);
                     break;
                 } else {
-                    System.out.println("You are not allowed to choose this card !");
+                    System.out.println("Sepehr are not allowed to choose this card !");
                 }
             }
         }
@@ -388,7 +388,7 @@ public class ThreePlayer extends UnoGame {
             }
         }
 
-        if (player.name.equals("You")) {
+        if (player.name.equals("Sepehr")) {
             System.out.println("Please enter next Color : ");
             nextColor = scanner.next();
             System.out.println();

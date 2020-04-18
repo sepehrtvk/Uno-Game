@@ -14,7 +14,7 @@ public class FourPlayer extends ThreePlayer {
             playerFourCards.add(cards.get(rand));
             cards.remove(cards.get(rand));
         }
-        players.add(new Player("player4", playerFourCards));
+        players.add(new Player("Hosien", playerFourCards));
     }
 
     @Override
