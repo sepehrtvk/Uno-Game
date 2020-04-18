@@ -1,7 +1,17 @@
+/**
+ * the Card abstract class represents a Card that has a color ( blue , red , yellow , green and black).
+ *
+ * @author sepehr tavakoli
+ * @version 1.0
+ * @since 2020.04.10
+ */
+
 public abstract class Card {
 
+    //color of the card.
     protected String color;
 
+    //colorful strings.
     public static final String Black = "\u001B[40m";
     public static final String Red = "\u001B[41m";
     public static final String Green = "\u001B[42m";
@@ -16,16 +26,26 @@ public abstract class Card {
     public static final String ANSI_WHITE = "\u001B[37m";
 
 
+    /**
+     * this constructor sets the color of each Card.
+     *
+     * @param color of the card.
+     */
 
     public Card(String color) {
         this.color = color;
     }
 
-
+    /**
+     * get the color of the color.
+     *
+     * @return color of the color.
+     */
     public String getColor() {
         return color;
     }
 
+    //override equals and hashCode methods.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,6 +61,9 @@ public abstract class Card {
         return getColor() != null ? getColor().hashCode() : 0;
     }
 
+    /**
+     * this method prints a card with details.
+     */
     public abstract void printCard();
 
 }

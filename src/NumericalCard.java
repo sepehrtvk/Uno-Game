@@ -1,18 +1,41 @@
+/**
+ * the NumericalCard class represents a Card that has a color ( blue , red , yellow , green and black)
+ * and a number for each card.
+ * this class inherits from Card class.
+ *
+ * @author sepehr tavakoli
+ * @version 1.0
+ * @since 2020.04.10
+ */
+
 public class NumericalCard extends Card {
 
+    //number of the card.
     private int number;
 
+    /**
+     * this constructor makes a NumericalCard with the given number and color.
+     *
+     * @param color  color of the card.
+     * @param number number of the card.
+     */
     public NumericalCard(String color, int number) {
         super(color);
         this.number = number;
     }
 
+    /**
+     * get the number of the card.
+     *
+     * @return number of the card.
+     */
     public int getNumber() {
         return number;
     }
 
-
-
+    /**
+     * override the printCard method to print a numerical card.
+     */
     @Override
     public void printCard() {
         if (super.color.equals("Red")) {

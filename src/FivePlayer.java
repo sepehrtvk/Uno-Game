@@ -1,23 +1,50 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * the FivePlayer class makes a uno game with 5 players.
+ * each player have 7 cards at first.
+ * a random card should be put on the table and then game stars.
+ * this class inherits from FourPlayer class.
+ *
+ * @author sepehr tavakoli
+ * @version 1.0
+ * @since 2020.04.10
+ */
+
 public class FivePlayer extends FourPlayer {
 
+    //cards of player 5 .
     private ArrayList<Card> playerFiveCards;
 
+    /**
+     * this constructor makes a FivePlayer game with 7 cards for each player.
+     */
 
     public FivePlayer() {
+
         super();
         playerFiveCards = new ArrayList<Card>();
+
+        //adding 7 cards to  player 5 .
         for (int i = 0; i < 7; i++) {
             int rand = random.nextInt(cards.size());
             playerFiveCards.add(cards.get(rand));
             cards.remove(cards.get(rand));
         }
+
+        //create player 5 .
         players.add(new Player("Sina", playerFiveCards));
+
+        //calculate score of each player.
         players.get(4).calculateScore();
     }
 
+    /**
+     * override the reverseCard method in class ThreePlayer.
+     *
+     * @param indexOfPlayer index of player in the list.
+     */
     @Override
     public void reverseCard(int indexOfPlayer) {
         if (indexOfPlayer == 0) {
@@ -76,14 +103,18 @@ public class FivePlayer extends FourPlayer {
 
     public void startFivePlayerGame() {
 
+        //first card if be movement card.
         if (lastCard instanceof MovementCard) {
+
             MovementCard movementCard = (MovementCard) lastCard;
             if (movementCard.getMoveType().equals("Reverse")) {
                 setRotate("Anti-Clock-Wise");
             }
+
             if (movementCard.getMoveType().equals("Skip")) {
                 players.get(0).setSkip(true);
             }
+
             if (movementCard.getMoveType().equals("Draw2+")) {
                 int rand1 = random.nextInt(cards.size());
                 int rand2 = random.nextInt(cards.size());
@@ -95,11 +126,16 @@ public class FivePlayer extends FourPlayer {
             }
         }
         Scanner scanner = new Scanner(System.in);
+
+        //count the number of round.
         int counter = 0;
+
         while (true) {
 
+            //show rotate mode.
             System.out.println(getRotate());
 
+            //show last card.
             System.out.println("Last card is :");
             lastCard.printCard();
 
@@ -108,14 +144,18 @@ public class FivePlayer extends FourPlayer {
             } else {
                 giveCardBot(players.get(0));
             }
+
+            //next color.
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
+
+            //check end game.
             if (counter > 0) if (endGame()) {
                 setWinner();
                 System.out.println();
                 break;
             }
 
-
+            //show rotate mode.
             System.out.println(getRotate());
 
             if (players.get(1).name.equals("Sepehr")) {
@@ -124,15 +164,17 @@ public class FivePlayer extends FourPlayer {
                 giveCardBot(players.get(1));
             }
 
-
+            //next color.
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
 
+            //check end game.
             if (counter > 0) if (endGame()) {
                 setWinner();
                 System.out.println();
                 break;
             }
 
+            //show rotate mode.
             System.out.println(getRotate());
 
             if (players.get(2).name.equals("Sepehr")) {
@@ -141,12 +183,17 @@ public class FivePlayer extends FourPlayer {
                 giveCardBot(players.get(2));
             }
 
+            //next color.
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
+
+            //check end game.
             if (counter > 0) if (endGame()) {
                 setWinner();
                 System.out.println();
                 break;
             }
+
+            //show rotate mode.
             System.out.println(getRotate());
 
             if (players.get(3).name.equals("Sepehr")) {
@@ -155,12 +202,17 @@ public class FivePlayer extends FourPlayer {
                 giveCardBot(players.get(3));
             }
 
+            //next color.
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
+
+            //check end game.
             if (counter > 0) if (endGame()) {
                 setWinner();
                 System.out.println();
                 break;
             }
+
+            //show rotate mode.
             System.out.println(getRotate());
 
             if (players.get(4).name.equals("Sepehr")) {
@@ -169,7 +221,10 @@ public class FivePlayer extends FourPlayer {
                 giveCardBot(players.get(4));
             }
 
+            //next color.
             if (!nextColor.equals("null")) System.out.println("Next color is : " + nextColor);
+
+            //check end game.
             if (counter > 0) if (endGame()) {
                 setWinner();
                 System.out.println();
@@ -178,8 +233,13 @@ public class FivePlayer extends FourPlayer {
 
 
             System.out.println();
+
+            //show score board.
             displayScoreBoard();
+
             counter++;
+
+            //enter next round.
             System.out.println("Enter 1 to play next round : ");
             scanner.nextInt();
         }
