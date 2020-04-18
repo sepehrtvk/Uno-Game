@@ -178,50 +178,22 @@ public class ThreePlayer extends UnoGame {
 
     public void giveCardYou(Player player) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Player " + player.name + " please choose one card :");
-        player.printPlayer();
+
         if (player.isSkip()) {
-            System.out.println("! PLAYER BLOCKED !");
+            System.out.println();
+            System.out.println(ANSI_RED + "! PLAYER BLOCKED !" + ANSI_RESET);
+            System.out.println();
             player.setSkip(false);
             return;
         }
+
+        System.out.println("Player " + player.name + " please choose one card :");
+        player.printPlayer();
+
         player.printPlayerCards();
 
-        boolean b = false;
-        for (Card playerCard : player.playerCards) {
-            if (lastCard.color.equals(playerCard.color)) {
-                b = true;
-                break;
-            }
-            if (lastCard instanceof WildCard) {
-                if (playerCard.color.equals(nextColor)) {
-                    b = true;
-                    break;
-                }
-            }
-            if (lastCard instanceof NumericalCard && playerCard instanceof NumericalCard) {
-                NumericalCard nc1 = (NumericalCard) lastCard;
-                NumericalCard nc2 = (NumericalCard) playerCard;
-                if (nc1.getNumber() == nc2.getNumber()) {
-                    b = true;
-                    break;
-                }
-            }
-            if (lastCard instanceof MovementCard && playerCard instanceof MovementCard) {
-                MovementCard movementCard1 = (MovementCard) playerCard;
-                MovementCard movementCard2 = (MovementCard) lastCard;
-                if (movementCard1.getMoveType().equals(movementCard2.getMoveType())) {
-                    b = true;
-                    break;
-                }
-            }
-            if (playerCard instanceof WildCard) {
-                b = true;
-                break;
-            }
 
-        }
-        if (!b) {
+        if (!isCardAllowed(player)) {
             int rand = random.nextInt(cards.size());
             player.playerCards.add(cards.get(rand));
             cards.remove(rand);
@@ -241,6 +213,43 @@ public class ThreePlayer extends UnoGame {
         }
     }
 
+
+    public boolean isCardAllowed(Player player) {
+        for (Card playerCard : player.playerCards) {
+            if (lastCard.color.equals(playerCard.color)) {
+                return true;
+                break;
+            }
+            if (lastCard instanceof WildCard) {
+                if (playerCard.color.equals(nextColor)) {
+                    return true;
+                    break;
+                }
+            }
+            if (lastCard instanceof NumericalCard && playerCard instanceof NumericalCard) {
+                NumericalCard nc1 = (NumericalCard) lastCard;
+                NumericalCard nc2 = (NumericalCard) playerCard;
+                if (nc1.getNumber() == nc2.getNumber()) {
+                    return true;
+                    break;
+                }
+            }
+            if (lastCard instanceof MovementCard && playerCard instanceof MovementCard) {
+                MovementCard movementCard1 = (MovementCard) playerCard;
+                MovementCard movementCard2 = (MovementCard) lastCard;
+                if (movementCard1.getMoveType().equals(movementCard2.getMoveType())) {
+                    return true;
+                    break;
+                }
+            }
+            if (playerCard instanceof WildCard) {
+                return true;
+                break;
+            }
+
+        }
+        return false;
+    }
 
     public boolean checkCard(Card cardToCheck, Player player, Card lastCardOnTable) {
 
