@@ -5,16 +5,16 @@ import java.util.Scanner;
 
 public class ThreePlayer extends UnoGame {
 
-    private ArrayList<Card> playerOneCards;
-    private ArrayList<Card> playerTwoCards;
-    private ArrayList<Card> playerThreeCards;
+     ArrayList<Card> playerOneCards;
+     ArrayList<Card> playerTwoCards;
+     ArrayList<Card> playerThreeCards;
 
-    private Card lastCard;
+     Card lastCard;
 
-    private String rotate;
-    private String nextColor;
+     String rotate;
+     String nextColor;
 
-    private ArrayList<Player> players;
+     ArrayList<Player> players;
 
     Random random = new Random();
 
@@ -516,8 +516,8 @@ public class ThreePlayer extends UnoGame {
     }
 
     public void skipCard(int indexOfPlayer) {
-        if (indexOfPlayer == 2) {
-            if (!players.get(2).isSkip())
+        if (indexOfPlayer == players.size()-1) {
+            if (!players.get(players.size()-1).isSkip())
                 players.get(0).setSkip(true);
         } else {
 
@@ -532,7 +532,7 @@ public class ThreePlayer extends UnoGame {
             int rand1 = random.nextInt(cards.size());
             int rand2 = random.nextInt(cards.size());
 
-            if (indexOfPlayer == 2) {
+            if (indexOfPlayer == players.size()-1) {
                 players.get(0).playerCards.add(cards.get(rand1));
                 cards.remove(cards.get(rand1));
                 players.get(0).playerCards.add(cards.get(rand2));
@@ -555,7 +555,7 @@ public class ThreePlayer extends UnoGame {
 
     public void drawCard4(int indexOfPlayer) {
         if (cards.size() >= 4) {
-            if (indexOfPlayer == 2) {
+            if (indexOfPlayer == players.size()-1) {
                 players.get(0).setSkip(true);
                 int rand1 = random.nextInt(cards.size());
                 players.get(0).playerCards.add(cards.get(rand1));
