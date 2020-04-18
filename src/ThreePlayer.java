@@ -345,18 +345,7 @@ public class ThreePlayer extends UnoGame {
             int indexOfPlayer = players.indexOf(player);
 
             if (playerCard.getMoveType().equals("Skip")) {
-                if (indexOfPlayer == 2) {
-                    if (!players.get(2).isSkip())
-                        players.get(0).setSkip(true);
-                }
-                if (indexOfPlayer == 1) {
-                    if (!players.get(1).isSkip())
-                        players.get(2).setSkip(true);
-                }
-                if (indexOfPlayer == 0) {
-                    if (!players.get(0).isSkip())
-                        players.get(1).setSkip(true);
-                }
+                skipCard(indexOfPlayer);
                 return true;
             }
 
@@ -433,14 +422,13 @@ public class ThreePlayer extends UnoGame {
         lastCard = playerCard;
 
         int indexOfPlayer = players.indexOf(player);
+
         if (playerCard.getWildType().equals("Draw4+")) {
             drawCard4(indexOfPlayer);
             return true;
 
-
         }
         if (playerCard.getWildType().equals("NextColor")) {
-
             return true;
         }
         return false;
@@ -521,28 +509,23 @@ public class ThreePlayer extends UnoGame {
 
     }
 
+    public void skipCard(int indexOfPlayer) {
+        if (indexOfPlayer == 2) {
+            if (!players.get(2).isSkip())
+                players.get(0).setSkip(true);
+        }
+
+        if (!players.get(indexOfPlayer).isSkip())
+            players.get(indexOfPlayer + 1).setSkip(true);
+
+
+    }
+
     public void drawCard2(int indexOfPlayer) {
         if (cards.size() >= 2) {
             int rand1 = random.nextInt(cards.size());
             int rand2 = random.nextInt(cards.size());
-            if (indexOfPlayer == 0) {
-                players.get(1).playerCards.add(cards.get(rand1));
-                cards.remove(cards.get(rand1));
-                players.get(1).playerCards.add(cards.get(rand2));
-                cards.remove(cards.get(rand2));
-                System.out.println("2 cards added to player " + players.get(1).name + " from repository.");
-                if (!players.get(0).isSkip())
-                    players.get(1).setSkip(true);
-            }
-            if (indexOfPlayer == 1) {
-                players.get(2).playerCards.add(cards.get(rand1));
-                cards.remove(cards.get(rand1));
-                players.get(2).playerCards.add(cards.get(rand2));
-                cards.remove(cards.get(rand2));
-                System.out.println("2 cards added to player " + players.get(2).name + " from repository.");
-                if (!players.get(1).isSkip())
-                    players.get(2).setSkip(true);
-            }
+
             if (indexOfPlayer == 2) {
                 players.get(0).playerCards.add(cards.get(rand1));
                 cards.remove(cards.get(rand1));
@@ -552,6 +535,16 @@ public class ThreePlayer extends UnoGame {
                 if (!players.get(2).isSkip())
                     players.get(0).setSkip(true);
 
+            }
+
+            if (indexOfPlayer == 0) {
+                players.get(indexOfPlayer + 1).playerCards.add(cards.get(rand1));
+                cards.remove(cards.get(rand1));
+                players.get(indexOfPlayer + 1).playerCards.add(cards.get(rand2));
+                cards.remove(cards.get(rand2));
+                System.out.println("2 cards added to player " + players.get(indexOfPlayer + 1).name + " from repository.");
+                if (!players.get(indexOfPlayer).isSkip())
+                    players.get(indexOfPlayer + 1).setSkip(true);
             }
         }
     }
