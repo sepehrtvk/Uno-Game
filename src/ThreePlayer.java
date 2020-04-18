@@ -165,7 +165,7 @@ public class ThreePlayer extends UnoGame {
                 player.playerCards.add(cards.get(rand));
                 cards.remove(rand);
                 System.out.println("One card added to player " + player.name + " from repository.");
-                while (true){
+                while (true) {
                     int choosedCard2 = random.nextInt(player.playerCards.size());
                     if (checkCard(player.playerCards.get(choosedCard2), player, lastCard)) break;
                     counter2++;
@@ -366,6 +366,7 @@ public class ThreePlayer extends UnoGame {
             }
 
             if (playerCard.getMoveType().equals("Draw2+")) {
+                drawCard2(indexOfPlayer);
                 return true;
             }
         }
@@ -448,7 +449,7 @@ public class ThreePlayer extends UnoGame {
                     int rand4 = random.nextInt(cards.size());
                     players.get(1).playerCards.add(cards.get(rand4));
                     cards.remove(rand4);
-                    System.out.println("4 cards added to player " + players.get(1).name+" from repository.");
+                    System.out.println("4 cards added to player " + players.get(1).name + " from repository.");
 
                 }
                 if (indexOfPlayer == 1) {
@@ -465,7 +466,7 @@ public class ThreePlayer extends UnoGame {
                     int rand4 = random.nextInt(cards.size());
                     players.get(2).playerCards.add(cards.get(rand4));
                     cards.remove(rand4);
-                    System.out.println("4 cards added to player " + players.get(2).name+" from repository.");
+                    System.out.println("4 cards added to player " + players.get(2).name + " from repository.");
                 }
                 if (indexOfPlayer == 2) {
                     players.get(0).setSkip(true);
@@ -481,7 +482,7 @@ public class ThreePlayer extends UnoGame {
                     int rand4 = random.nextInt(cards.size());
                     players.get(0).playerCards.add(cards.get(rand4));
                     cards.remove(rand4);
-                    System.out.println("4 cards added to player " + players.get(0).name+" from repository.");
+                    System.out.println("4 cards added to player " + players.get(0).name + " from repository.");
 
                 }
                 return true;
@@ -535,7 +536,7 @@ public class ThreePlayer extends UnoGame {
         }
     }
 
-    public void reverseCard(int indexOfPlayer){
+    public void reverseCard(int indexOfPlayer) {
         if (rotate.equals("Clock-Wise"))
             setRotate("Anti-Clock-Wise");
         if (rotate.equals("Anti-Clock-Wise"))
@@ -568,6 +569,41 @@ public class ThreePlayer extends UnoGame {
             players.add(playerTemp3);
         }
 
+    }
+
+    public void drawCard2(int indexOfPlayer) {
+        if (cards.size() >= 2) {
+            int rand1 = random.nextInt(cards.size());
+            int rand2 = random.nextInt(cards.size());
+            if (indexOfPlayer == 0) {
+                players.get(1).playerCards.add(cards.get(rand1));
+                cards.remove(cards.get(rand1));
+                players.get(1).playerCards.add(cards.get(rand2));
+                cards.remove(cards.get(rand2));
+                System.out.println("2 cards added to player " + players.get(1).name + " from repository.");
+                if (!players.get(0).isSkip())
+                    players.get(1).setSkip(true);
+            }
+            if (indexOfPlayer == 1) {
+                players.get(2).playerCards.add(cards.get(rand1));
+                cards.remove(cards.get(rand1));
+                players.get(2).playerCards.add(cards.get(rand2));
+                cards.remove(cards.get(rand2));
+                System.out.println("2 cards added to player " + players.get(2).name + " from repository.");
+                if (!players.get(1).isSkip())
+                    players.get(2).setSkip(true);
+            }
+            if (indexOfPlayer == 2) {
+                players.get(0).playerCards.add(cards.get(rand1));
+                cards.remove(cards.get(rand1));
+                players.get(0).playerCards.add(cards.get(rand2));
+                cards.remove(cards.get(rand2));
+                System.out.println("2 cards added to player " + players.get(0).name + " from repository.");
+                if (!players.get(2).isSkip())
+                    players.get(0).setSkip(true);
+
+            }
+        }
     }
 
     public boolean endGame() {
