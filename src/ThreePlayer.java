@@ -434,59 +434,9 @@ public class ThreePlayer extends UnoGame {
 
         int indexOfPlayer = players.indexOf(player);
         if (playerCard.getWildType().equals("Draw4+")) {
-            if (cards.size() >= 4) {
-                if (indexOfPlayer == 0) {
-                    players.get(1).setSkip(true);
-                    int rand1 = random.nextInt(cards.size());
-                    players.get(1).playerCards.add(cards.get(rand1));
-                    cards.remove(rand1);
-                    int rand2 = random.nextInt(cards.size());
-                    players.get(1).playerCards.add(cards.get(rand2));
-                    cards.remove(rand2);
-                    int rand3 = random.nextInt(cards.size());
-                    players.get(1).playerCards.add(cards.get(rand3));
-                    cards.remove(rand3);
-                    int rand4 = random.nextInt(cards.size());
-                    players.get(1).playerCards.add(cards.get(rand4));
-                    cards.remove(rand4);
-                    System.out.println("4 cards added to player " + players.get(1).name + " from repository.");
+            drawCard4(indexOfPlayer);
+            return true;
 
-                }
-                if (indexOfPlayer == 1) {
-                    players.get(2).setSkip(true);
-                    int rand1 = random.nextInt(cards.size());
-                    players.get(2).playerCards.add(cards.get(rand1));
-                    cards.remove(rand1);
-                    int rand2 = random.nextInt(cards.size());
-                    players.get(2).playerCards.add(cards.get(rand2));
-                    cards.remove(rand2);
-                    int rand3 = random.nextInt(cards.size());
-                    players.get(2).playerCards.add(cards.get(rand3));
-                    cards.remove(rand3);
-                    int rand4 = random.nextInt(cards.size());
-                    players.get(2).playerCards.add(cards.get(rand4));
-                    cards.remove(rand4);
-                    System.out.println("4 cards added to player " + players.get(2).name + " from repository.");
-                }
-                if (indexOfPlayer == 2) {
-                    players.get(0).setSkip(true);
-                    int rand1 = random.nextInt(cards.size());
-                    players.get(0).playerCards.add(cards.get(rand1));
-                    cards.remove(rand1);
-                    int rand2 = random.nextInt(cards.size());
-                    players.get(0).playerCards.add(cards.get(rand2));
-                    cards.remove(rand2);
-                    int rand3 = random.nextInt(cards.size());
-                    players.get(0).playerCards.add(cards.get(rand3));
-                    cards.remove(rand3);
-                    int rand4 = random.nextInt(cards.size());
-                    players.get(0).playerCards.add(cards.get(rand4));
-                    cards.remove(rand4);
-                    System.out.println("4 cards added to player " + players.get(0).name + " from repository.");
-
-                }
-                return true;
-            }
 
         }
         if (playerCard.getWildType().equals("NextColor")) {
@@ -604,6 +554,45 @@ public class ThreePlayer extends UnoGame {
 
             }
         }
+    }
+
+    public void drawCard4(int indexOfPlayer) {
+        if (cards.size() >= 4) {
+            if (indexOfPlayer == 2) {
+                players.get(0).setSkip(true);
+                int rand1 = random.nextInt(cards.size());
+                players.get(0).playerCards.add(cards.get(rand1));
+                cards.remove(rand1);
+                int rand2 = random.nextInt(cards.size());
+                players.get(0).playerCards.add(cards.get(rand2));
+                cards.remove(rand2);
+                int rand3 = random.nextInt(cards.size());
+                players.get(0).playerCards.add(cards.get(rand3));
+                cards.remove(rand3);
+                int rand4 = random.nextInt(cards.size());
+                players.get(0).playerCards.add(cards.get(rand4));
+                cards.remove(rand4);
+                System.out.println("4 cards added to player " + players.get(0).name + " from repository.");
+
+            }
+
+            players.get(indexOfPlayer + 1).setSkip(true);
+            int rand1 = random.nextInt(cards.size());
+            players.get(indexOfPlayer + 1).playerCards.add(cards.get(rand1));
+            cards.remove(rand1);
+            int rand2 = random.nextInt(cards.size());
+            players.get(indexOfPlayer + 1).playerCards.add(cards.get(rand2));
+            cards.remove(rand2);
+            int rand3 = random.nextInt(cards.size());
+            players.get(indexOfPlayer + 1).playerCards.add(cards.get(rand3));
+            cards.remove(rand3);
+            int rand4 = random.nextInt(cards.size());
+            players.get(indexOfPlayer + 1).playerCards.add(cards.get(rand4));
+            cards.remove(rand4);
+            System.out.println("4 cards added to player " + players.get(indexOfPlayer + 1).name + " from repository.");
+
+        }
+
     }
 
     public boolean endGame() {
